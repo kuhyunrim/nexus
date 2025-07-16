@@ -1,0 +1,17 @@
+{
+  "name": "nexus-scss-browsersync",
+  "version": "1.0.0",
+  "description": "SCSS 자동 컴파일 및 브라우저 동기화 환경",
+  "scripts": {
+    "start": "gulp",
+    "build": "gulp build"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.4",
+    "gulp": "^4.0.2",
+    "gulp-imagemin": "^9.1.0",
+    "gulp-sass": "^6.0.1",
+    "gulp-sourcemaps": "^3.0.0",
+    "sass": "^1.89.2"
+  }
+}

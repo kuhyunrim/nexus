@@ -1,0 +1,65 @@
+// @function clamp()
+
+@function rem($size) {
+  @return calc($size / $baseSize * 1rem);
+}
+@function cons($directon) {
+  @return constant(safe-area-inset-#{$directon});
+}
+@function safe($directon) {
+  @return env(safe-area-inset-#{$directon});
+}
+
+@function percent($val) {
+  @return $val / 1600 * 100#{'%'};
+}
+@mixin darkmode {
+  @media all and (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+@mixin pc {
+  @media all and (min-width: 1025px) {
+      @content;
+  }
+}
+
+@mixin mobile {
+  @media all and (max-width: 1024px){
+    @content;
+  }
+}
+@mixin w320 {
+  @media all and (max-width: 320px){
+    @content;
+  }
+}
+@mixin w1000 {
+  @media all and (max-width: 1000px){
+    @content;
+  }
+}
+@mixin w768 {
+  @media all and (max-width: 768px){
+    @content;
+  }
+}
+@mixin w720 {
+  @media all and (max-width: 720px){
+    @content;
+  }
+}
+@mixin w360 {
+  @media all and (max-width: 360px){
+    @content;
+  }
+}
+
+@mixin line-clamp($font-size, $line) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+  overflow: hidden;
+  font-size: rem($font-size);
+}
