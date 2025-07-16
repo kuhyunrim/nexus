@@ -83,23 +83,23 @@ input[type='submit'],
 input[type='search'],
 input[type='number'],
 textarea {
-  -webkit-appearance: none;
+  appearance: none;
   // border-radius:0;
 }
 input:checked[type='checkbox'] {
   background-color: #666;
-  -webkit-appearance: checkbox;
+  appearance: checkbox;
 }
 button,
 input[type='button'],
 input[type='submit'],
 input[type='reset'],
 input[type='file'] {
-  -webkit-appearance: button;
+  appearance: button;
   // border-radius:0;
 }
 input[type='search']::-webkit-search-cancel-button {
-  -webkit-appearance: none;
+  appearance: none;
 }
 *,
 *::before,
@@ -182,7 +182,7 @@ a[href^='tel'] {
 }
 
 select {
-  -webkit-appearance: none;
+  appearance: none;
   -moz-appearance: none;
   appearance: none;
   &:-ms-expand {
