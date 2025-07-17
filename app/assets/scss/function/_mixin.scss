@@ -21,37 +21,37 @@
 
 @mixin pc {
   @media all and (min-width: 1025px) {
-      @content;
+    @content;
   }
 }
 
 @mixin mobile {
-  @media all and (max-width: 1024px){
+  @media all and (max-width: 1024px) {
     @content;
   }
 }
 @mixin w320 {
-  @media all and (max-width: 320px){
+  @media all and (max-width: 320px) {
     @content;
   }
 }
 @mixin w1000 {
-  @media all and (max-width: 1000px){
+  @media all and (max-width: 1000px) {
     @content;
   }
 }
 @mixin w768 {
-  @media all and (max-width: 768px){
+  @media all and (max-width: 768px) {
     @content;
   }
 }
 @mixin w720 {
-  @media all and (max-width: 720px){
+  @media all and (max-width: 720px) {
     @content;
   }
 }
 @mixin w360 {
-  @media all and (max-width: 360px){
+  @media all and (max-width: 360px) {
     @content;
   }
 }
@@ -62,4 +62,8 @@
   -webkit-line-clamp: $line;
   overflow: hidden;
   font-size: rem($font-size);
+}
+
+@function vw($size) {
+  @return calc($size / 1920 * 100 * 1vw);
 }

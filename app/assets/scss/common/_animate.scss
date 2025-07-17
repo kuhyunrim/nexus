@@ -1,0 +1,12 @@
+.rise {
+  opacity: 0;
+  transform: translateY(40px);
+  overflow: hidden;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
