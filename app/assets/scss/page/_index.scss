@@ -11,11 +11,12 @@
       width: 1520px;
       height: 100%;
       margin: 0 auto;
+      padding: 0 20px;
     }
     &__description {
       position: absolute;
       bottom: 80px;
-      left: 0;
+      left: 20px;
       width: 100%;
     }
     &__text {
@@ -31,5 +32,16 @@
       font-weight: 800;
       color: #fff;
     }
+  }
+}
+
+.main-description {
+  width: 100%;
+  &__inner {
+    position: relative;
+    width: 1520px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 160px 20px;
   }
 }
