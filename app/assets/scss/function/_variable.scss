@@ -1,4 +1,5 @@
-// $baseSize: 16;
+@use '../function/mixin' as *;
+
 $blue: #1a32b4;
 $baseSize: 10;
 $lightBlue: #00bfc2;
@@ -12,7 +13,7 @@ $black: #14100d;
 
 %container {
   width: 100%;
-  max-width: 1560px;
+  max-width: 1518px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 vw(16);
 }

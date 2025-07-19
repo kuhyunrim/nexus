@@ -1,2 +1,2 @@
-<script defer src="../../assets/js/lib/lib.js"></script>
-<script defer src="../../assets/js/common.js"></script>
+<script src="../../assets/js/lib/swiper-bundle.min.js"></script>
+<script src="../../assets/js/common.js"></script>

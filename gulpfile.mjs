@@ -6,7 +6,6 @@ import dartSass from 'sass';
 import sourcemap from 'gulp-sourcemaps';
 import connectSSI from 'connect-ssi';
 import ssi from 'gulp-ssi';
-import concat from 'gulp-concat';
 import sync from 'browser-sync';
 
 const sass = gulpSass(dartSass);
@@ -90,23 +89,11 @@ export const css = () => {
 };
 
 export const img = async () => {
-  return await gulp
-    .src(path.images.src)
-    .pipe(gulp.dest(path.images.dist));
+  return await gulp.src(path.images.src).pipe(gulp.dest(path.images.dist));
 };
-
 
 export const font = () => {
   return gulp.src(path.font.src).pipe(gulp.dest(path.font.dist));
-};
-
-export const concatJs = () => {
-  return (
-    gulp
-      .src(path.library.src)
-      .pipe(concat('lib.js'))
-      .pipe(gulp.dest(path.library.temp))
-  );
 };
 
 export const scss = () => {
@@ -118,7 +105,10 @@ export const scss = () => {
     .pipe(gulp.dest(path.scss.dist));
 };
 export const scssBuild = () => {
-  return gulp.src(path.scss.src).pipe(sass(scssOptions).on('error', sass.logError)).pipe(gulp.dest(path.scss.dist));
+  return gulp
+    .src(path.scss.src)
+    .pipe(sass(scssOptions).on('error', sass.logError))
+    .pipe(gulp.dest(path.scss.dist));
 };
 
 export const server = () => {
@@ -146,14 +136,14 @@ export const server = () => {
   gulp.watch(path.scss.src, scss);
   gulp.watch(path.css.src).on('all', reload);
   gulp.watch(path.js.src).on('all', reload);
-  gulp.watch(path.library.src).on('all', concatJs);
+  // gulp.watch(path.library.src).on('all', concatJs);
   gulp.watch(path.html.src).on('all', reload);
   gulp.watch(path.images.src).on('all', reload);
 };
 
 // exports.clean = clean;
 // export server = server;
-export const dev = series(scss, concatJs, server);
+export const dev = series(scss, server);
 export const build = series(html, scssBuild, css, js, img, font, dashboard);
 
 export default dev;

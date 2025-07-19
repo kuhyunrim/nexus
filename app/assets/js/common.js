@@ -1,40 +1,73 @@
-function animteUp(selector, delay = 200) {
-  const lines =
+/**
+ * 요소가 화면에 보이면 위로 올라오는 애니메이션을 적용합니다.
+ * @param {string|NodeList} selector - 애니메이션을 적용할 CSS 선택자 또는 NodeList
+ * @param {number} [delay=200] - 각 요소의 애니메이션 간 지연 시간(밀리초)
+ * @param {Object} [options={}] - 추가 옵션
+ * @param {number} [options.threshold=0.2] - 요소가 몇 % 보일 때 애니메이션 시작할지 (0~1)
+ * @param {boolean} [options.once=true] - 애니메이션을 한 번만 실행할지 여부
+ * @example
+ * // 기본 사용법
+ * animateUp('.rise', 200);
+ *
+ * // 옵션 지정
+ * animateUp('.fade-in', 150, { threshold: 0.3, once: true });
+ */
+function animateUp(selector, delay = 200, options = {}) {
+  const { threshold = 0.2, once = true } = options;
+
+  // 요소 가져오기
+  const elements =
     typeof selector === 'string'
       ? document.querySelectorAll(selector)
       : selector;
 
-  if (!('IntersectionObserver' in window)) {
-    // 폴백: 지원하지 않는 브라우저에서는 즉시 실행
-    lines.forEach((line, i) => {
-      setTimeout(() => {
-        line.classList.add('show');
-      }, i * delay);
-    });
+  if (!elements.length) {
     return;
   }
 
-  let triggered = false;
+  elements.forEach((element) => {
+    element.style.willChange = 'opacity, transform';
+  });
+
+  const runAnimation = (element, index) => {
+    setTimeout(() => {
+      element.classList.add('show');
+      setTimeout(() => {
+        element.style.willChange = '';
+      }, 1000);
+    }, index * delay);
+  };
+
+  if (!('IntersectionObserver' in window)) {
+    elements.forEach((element, index) => runAnimation(element, index));
+    return;
+  }
+
   const observer = new IntersectionObserver(
-    (entries, obs) => {
+    (entries, observer) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && !triggered) {
-          triggered = true;
-          lines.forEach((line, i) => {
-            setTimeout(() => {
-              line.classList.add('show');
-            }, i * delay);
-          });
-          obs.disconnect();
+        if (entry.isIntersecting) {
+          const element = entry.target;
+          const index = Array.from(elements).indexOf(element);
+          runAnimation(element, index);
+          if (once) {
+            observer.unobserve(element);
+          }
         }
       });
     },
-    { threshold: 0.2 }
-  ); // 20% 이상 보이면 트리거
+    {
+      root: null,
+      rootMargin: '0px',
+      threshold: threshold,
+    }
+  );
 
-  lines.forEach((line) => observer.observe(line));
+  elements.forEach((element) => observer.observe(element));
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  window.animteUp('.rise', 400);
+  animateUp('.rise', 400, {
+    threshold: 0.1,
+  });
 });

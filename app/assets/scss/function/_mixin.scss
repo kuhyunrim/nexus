@@ -61,7 +61,7 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: $line;
   overflow: hidden;
-  font-size: rem($font-size);
+  font-size: $font-size;
 }
 
 @function vw($size) {
