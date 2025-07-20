@@ -18,7 +18,8 @@
   &__logo {
     width: vw(160);
     height: vw(40);
-    background: url(../img/logo_nexus.webp) 50% 50% / 100% auto no-repeat;
+    mask: url(../img/logo-nexus.webp) 50% 50% / 100% auto no-repeat;
+    background: #fff;
   }
   &__gnb {
     margin-left: auto;
@@ -29,6 +30,7 @@
     &__list {
       display: flex;
       align-items: center;
+      gap: vw(80)
     }
     &__item {
       margin-left: vw(20);
@@ -39,8 +41,121 @@
       color: #fff;
     }
   }
+  &__add{
+    margin-left: vw(112);
+    display: flex;
+    align-items: center;
+    gap: vw(20);
+    &-item{
+      font-size: vw(15);
+      font-weight: 500;
+      color: #fff;
+    }
+  }
 }
 
 .container {
   @extend %container;
+}
+
+.main-footer{
+  padding: vw(74) 0 vw(44);
+  background: #111;
+  &__inner{
+    @extend %container;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__company{
+    display: flex;
+    flex-direction: column;
+    gap: vw(30);
+  }
+  &__logo{
+    width: vw(196);
+    height: vw(36);
+    background: url(../img/logo-footer-nexus.webp) 50% 50% / 100% auto no-repeat;
+  }
+  &__copyright{
+    font-size: vw(16);
+    color: #888888;
+  }
+  &__info{
+    display: flex;
+    flex-wrap: wrap;
+    width: vw(760);
+  }
+  &__site{
+    display: flex;
+    flex-wrap: wrap;
+    gap: vw(36) 0;
+    width: 50%;
+    &-item{
+      width: calc(50% - vw(20));
+    }
+    &-link{
+      font-size: vw(18);
+      color: #ffffff;
+    }
+  }
+  &__contact{
+    display: flex;
+    flex-direction: column;
+    gap: vw(24);
+    width: 100%;
+    &-wrap{
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+    }
+   &-row{
+    width: 100%;
+    display: flex;
+    gap: vw(30);
+   }
+   &-column{
+    display: flex;
+    flex-direction: column;
+    gap: vw(8);
+    width: 100%;
+    dt{
+      font-size: vw(14);
+      color: #ffffff;
+      opacity: .5;
+    }
+    dd{
+      font-size: vw(18);
+      color: #dddddd;
+    }
+   }
+  }
+  &__sns{
+    display: flex;
+    gap: vw(12);
+    margin-top: auto; 
+    &-item{
+      &.youtube{
+        width: vw(30);
+        height: vw(21);
+        background: url(../img/icon-footer-youtube.webp) 50% 50% / 100% auto no-repeat;
+      }
+      &.instagram{
+        width: vw(22);
+        height: vw(22);
+        background: url(../img/icon-footer-instagram.webp) 50% 50% / 100% auto no-repeat;
+      }
+    }
+  }
+  &__policy{
+    display: flex;
+    gap: vw(30);
+    width: 100%;
+    margin-top: vw(80);
+    padding-top: vw(40);
+    border-top: solid 1px rgba(255, 255, 255, 0.2);
+    &-link{
+      font-size: vw(16);
+      color: #888888;
+    }
+  }
 }

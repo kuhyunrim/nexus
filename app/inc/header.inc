@@ -26,5 +26,9 @@
         </li>
       </ul>
     </div>
+    <div class="main-header__add">
+      <a href="#" class="main-header__add-item">고객지원</a>
+      <a href="#" class="main-header__add-item">KR</a>
+    </div>
   </div>
 </header>
