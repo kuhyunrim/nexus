@@ -26,7 +26,8 @@ function animateUp(selector, delay = 200, options = {}) {
   }
 
   elements.forEach((element) => {
-    element.style.willChange = 'opacity, transform';
+    element.style.willChange =
+      'transition: transform 0.6s ease-in-out, background-color 0.6s ease-in-out;';
   });
 
   const runAnimation = (element, index) => {
@@ -66,7 +67,44 @@ function animateUp(selector, delay = 200, options = {}) {
   elements.forEach((element) => observer.observe(element));
 }
 
+// Header scroll behavior
+let lastScroll = 0;
+const header = document.getElementById('header');
+const headerHeight = header.offsetHeight;
+
+const handleScroll = () => {
+  const currentScroll = window.pageYOffset;
+
+  // Add/remove 'scrolled' class based on scroll position
+  if (currentScroll > 10) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+
+  // Show/hide header based on scroll direction
+  if (currentScroll > lastScroll && currentScroll > headerHeight) {
+    // Scrolling down
+    header.classList.add('header--hidden');
+  } else {
+    // Scrolling up
+    header.classList.remove('header--hidden');
+  }
+
+  lastScroll = currentScroll;
+};
+
+// Throttle scroll events for better performance
+let isScrolling;
+window.addEventListener('scroll', () => {
+  window.clearTimeout(isScrolling);
+  isScrolling = setTimeout(handleScroll, 10); // Reduced from 50ms to 10ms for faster response
+});
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize header state
+  handleScroll();
+
   animateUp('.rise', 400, {
     threshold: 0.1,
   });

@@ -26,9 +26,16 @@
         </li>
       </ul>
     </div>
-    <div class="main-header__add">
-      <a href="#" class="main-header__add-item">고객지원</a>
-      <a href="#" class="main-header__add-item">KR</a>
+    <div class="main-header__util">
+      <div class="main-header__util-item">
+        <button type="button" class="main-header__util-button">고객지원</button>
+      </div>
+
+      <div class="main-header__util-item">
+        <button type="button" class="main-header__util-button has-dropdown">
+          KR
+        </button>
+      </div>
     </div>
   </div>
 </header>

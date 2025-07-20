@@ -1,6 +1,26 @@
 @use '../function/variable';
 @use '../function/mixin' as *;
 
+.main-header {
+  &.scrolled {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    .main-header__logo {
+      background: #000;
+    }
+
+    .gnb__link {
+      color: #111;
+    }
+    .main-header__util-button {
+      color: #111;
+    }
+    .main-header__util-button.has-dropdown::after {
+      background: #111;
+    }
+  }
+}
 .main-content {
   .main-hero {
     width: 100%;
@@ -175,7 +195,7 @@
       z-index: 10;
       left: -50%;
       background: #f2f2f2;
-      transform: translateX(calc(vw(1518) / 2) * -1);
+      transform: translateX(calc(vw(1380) / 2) * -1);
     }
     padding-top: vw(128);
     .swiper {
