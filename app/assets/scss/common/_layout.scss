@@ -12,21 +12,21 @@
     background-color 0.6s ease-in-out;
   transform: translateY(0);
 
-  // &.scrolled {
-  //   background-color: rgba(255, 255, 255, 0.95);
-  //   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  &.scrolled {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 
-  //   .main-header__logo {
-  //     background: #000;
-  //   }
+    .main-header__logo {
+      background: #000;
+    }
 
-  //   .gnb__link {
-  //     color: #111;
-  //   }
-  //   .main-header__util-button {
-  //     color: #111;
-  //   }
-  // }
+    .gnb__link {
+      color: #111;
+    }
+    .main-header__util-button {
+      color: #111;
+    }
+  }
 
   &.header--hidden {
     transform: translateY(-100%);
@@ -87,8 +87,7 @@
           transform: translateY(-50%);
           width: vw(12);
           height: vw(8);
-          mask: url(../img/icon/arrow-header-light.svg) 50% 50% / 100% auto
-            no-repeat;
+          mask: url(../img/icon/arrow-header-light.svg) 50% 50% / 100% auto no-repeat;
           background: #fff;
         }
       }
@@ -179,14 +178,12 @@
       &.youtube {
         width: vw(30);
         height: vw(21);
-        background: url(../img/icon-footer-youtube.webp) 50% 50% / 100% auto
-          no-repeat;
+        background: url(../img/icon-footer-youtube.webp) 50% 50% / 100% auto no-repeat;
       }
       &.instagram {
         width: vw(22);
         height: vw(22);
-        background: url(../img/icon-footer-instagram.webp) 50% 50% / 100% auto
-          no-repeat;
+        background: url(../img/icon-footer-instagram.webp) 50% 50% / 100% auto no-repeat;
       }
     }
   }
@@ -200,6 +197,25 @@
     &-link {
       font-size: vw(16);
       color: #888888;
+    }
+  }
+}
+
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: vw(12);
+  font-size: vw(16);
+  color: #fff;
+  .icon {
+    width: vw(46);
+    height: vw(46);
+    background: url(../img/icon/icon-link-arrow-circle.webp) 50% 50% / cover no-repeat;
+  }
+  &.black {
+    color: #000;
+    .icon {
+      background: url(../img/icon/icon-link-arrow-circle-black.webp) 50% 50% / cover no-repeat;
     }
   }
 }
