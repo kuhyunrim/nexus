@@ -23,21 +23,38 @@
 }
 .main-content {
   .main-hero {
+    position: relative;
     width: 100%;
     height: 100dvh;
-    background: url(../img/main/img_main_visual.webp) 50% 50% / cover no-repeat;
+    overflow: hidden;
+
+    &__video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: 1;
+      object-fit: cover;
+    }
     &__inner {
       @extend %container;
       position: relative;
+      z-index: 5;
       height: 100%;
       margin: 0 auto;
       // padding: 0 vw(20);
       max-width: 100%;
+      background: rgba(0, 0, 0, 0.3);
     }
     &__description {
       position: absolute;
       bottom: vw(80);
       left: vw(20);
+      z-index: 2;
     }
     &__text {
       margin-bottom: vw(10);
@@ -275,7 +292,7 @@
     @extend %container;
 
     &::before {
-      content: '';
+      // content: '';
       width: 100%;
       height: 100%;
       position: absolute;

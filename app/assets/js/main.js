@@ -29,26 +29,20 @@ const mainSwiper = new Swiper('.main-swiper__inner .swiper', {
     bulletActiveClass: 'is-active',
     renderBullet: function (index, className) {
       return `
-      <div class="${className}" data-index="${index}">${
-        ['수소 인프라', 'LNG 인프라', 'LPG 인프라'][index]
-      }</div>
+      <div class="${className}" data-index="${index}">${['수소 인프라', 'LNG 인프라', 'LPG 인프라'][index]}</div>
       `;
     },
   },
   on: {
     init: function () {
       // Initialize active state on first load
-      const bullets = document.querySelectorAll(
-        '.main-swiper__pagination-bullet'
-      );
+      const bullets = document.querySelectorAll('.main-swiper__pagination-bullet');
       if (bullets.length > 0) {
         bullets[0].classList.add('is-active');
       }
     },
     slideChange: function () {
-      const bullets = document.querySelectorAll(
-        '.main-swiper__pagination-bullet'
-      );
+      const bullets = document.querySelectorAll('.main-swiper__pagination-bullet');
       const activeIndex = this.realIndex % bullets.length; // Handle loop mode
 
       // Remove active class from all bullets

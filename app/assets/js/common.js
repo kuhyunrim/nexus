@@ -1,21 +1,6 @@
-/**
- * 요소가 화면에 보이면 위로 올라오는 애니메이션을 적용합니다.
- * @param {string|NodeList} selector - 애니메이션을 적용할 CSS 선택자 또는 NodeList
- * @param {number} [delay=200] - 각 요소의 애니메이션 간 지연 시간(밀리초)
- * @param {Object} [options={}] - 추가 옵션
- * @param {number} [options.threshold=0.2] - 요소가 몇 % 보일 때 애니메이션 시작할지 (0~1)
- * @param {boolean} [options.once=true] - 애니메이션을 한 번만 실행할지 여부
- * @example
- * // 기본 사용법
- * animateUp('.rise', 200);
- *
- * // 옵션 지정
- * animateUp('.fade-in', 150, { threshold: 0.3, once: true });
- */
 function animateUp(selector, delay = 200, options = {}) {
   const { threshold = 0.2, once = true } = options;
 
-  // 요소 가져오기
   const elements = typeof selector === 'string' ? document.querySelectorAll(selector) : selector;
 
   if (!elements.length) {
@@ -63,7 +48,6 @@ function animateUp(selector, delay = 200, options = {}) {
   elements.forEach((element) => observer.observe(element));
 }
 
-// Header scroll behavior
 let lastScroll = 0;
 const header = document.getElementById('header');
 const headerHeight = header.offsetHeight;
@@ -71,35 +55,28 @@ const headerHeight = header.offsetHeight;
 const handleScroll = () => {
   const currentScroll = window.pageYOffset;
 
-  // Add/remove 'scrolled' class based on scroll position
   if (currentScroll > 10) {
     header.classList.add('scrolled');
   } else {
     header.classList.remove('scrolled');
   }
 
-  // Show/hide header based on scroll direction
   if (currentScroll > lastScroll && currentScroll > headerHeight) {
-    // Scrolling down
     header.classList.add('header--hidden');
   } else {
-    // Scrolling up
     header.classList.remove('header--hidden');
   }
 
   lastScroll = currentScroll;
 };
 
-// Throttle scroll events for better performance
 let isScrolling;
 window.addEventListener('scroll', () => {
   window.clearTimeout(isScrolling);
-  isScrolling = setTimeout(handleScroll, 10); // Reduced from 50ms to 10ms for faster response
+  isScrolling = setTimeout(handleScroll, 10);
 });
 
-// 이미지 아코디언 기능
 function initImageAccordion() {
-  // 콘텐츠 높이 설정 헬퍼 함수
   const setContentHeight = (content, isOpen) => {
     if (isOpen) {
       content.style.maxHeight = 'none';
@@ -122,13 +99,6 @@ function initImageAccordion() {
     content.style.transition = 'all 0.3s ease';
   };
 
-  // 아이콘 상태 설정 헬퍼 함수
-  // const setIconState = (icon, isActive) => {
-  //   icon.style.transition = 'transform 0.3s ease';
-  //   icon.style.transform = isActive ? 'rotate(45deg)' : 'rotate(0deg)';
-  // };
-
-  // 이미지 업데이트 헬퍼 함수
   const updateImage = (button, imageContainer) => {
     const imageSrc = button.getAttribute('data-image');
     const img = imageContainer?.querySelector('img');
@@ -147,7 +117,6 @@ function initImageAccordion() {
     const buttons = accordion.querySelectorAll('.image-accordion__button');
     const imageContainer = accordion.querySelector('.image-accordion__image');
 
-    // 이미지 요소 생성
     if (imageContainer && !imageContainer.querySelector('img')) {
       const img = document.createElement('img');
       img.className = 'image-accordion__img';
@@ -159,49 +128,40 @@ function initImageAccordion() {
       imageContainer.appendChild(img);
     }
 
-    // 초기 이미지 설정
     const activeItem = accordion.querySelector('.image-accordion__item.is-active');
     if (activeItem && imageContainer) {
       const activeButton = activeItem.querySelector('.image-accordion__button');
       updateImage(activeButton, imageContainer);
     }
 
-    // 버튼 클릭 이벤트 처리
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
         const currentItem = button.closest('.image-accordion__item');
 
-        // 이미 활성화된 아이템 클릭 시 무시 (항상 하나는 열려있도록)
         if (currentItem.classList.contains('is-active')) return;
 
-        // 스크롤 위치 보정을 위한 현재 상태 저장
         const scrollY = window.scrollY;
         const accordionRect = accordion.getBoundingClientRect();
         const accordionTop = accordionRect.top + scrollY;
         const isAccordionAboveViewport = accordionTop < scrollY;
 
-        // 현재 활성 아이템의 높이 측정
         const activeItem = accordion.querySelector('.image-accordion__item.is-active');
         const activeContent = activeItem?.querySelector('.image-accordion__content');
         const oldHeight = activeContent ? activeContent.scrollHeight : 0;
 
-        // 모든 아이템 비활성화
         items.forEach((item) => {
           item.classList.remove('is-active');
           const content = item.querySelector('.image-accordion__content');
           const icon = item.querySelector('.image-accordion__icon');
 
           if (content) setContentHeight(content, false);
-          // if (icon) setIconState(icon, false);
         });
 
-        // 클릭한 아이템 활성화
         currentItem.classList.add('is-active');
         const content = currentItem.querySelector('.image-accordion__content');
         const icon = currentItem.querySelector('.image-accordion__icon');
 
         if (content) {
-          // 새로운 높이 측정을 위해 임시로 열기
           content.style.maxHeight = 'none';
           content.style.height = 'auto';
           content.style.overflow = 'visible';
@@ -211,37 +171,30 @@ function initImageAccordion() {
           const newHeight = content.scrollHeight;
           const heightDiff = newHeight - oldHeight;
 
-          // 원래 상태로 되돌리고 애니메이션 시작
-          content.offsetHeight; // 강제 리플로우
+          content.offsetHeight;
           setContentHeight(content, true);
 
-          // 아코디언이 뷰포트 위에 있고 높이가 증가했을 때만 스크롤 보정
           if (isAccordionAboveViewport && heightDiff > 0) {
-            // 애니메이션 완료 후 스크롤 위치 보정
             setTimeout(() => {
               const newScrollY = scrollY + heightDiff;
               window.scrollTo({
                 top: newScrollY,
-                behavior: 'auto', // 즉시 이동
+                behavior: 'auto',
               });
-            }, 300); // 애니메이션 시간과 동일
+            }, 300);
           }
         }
-        // if (icon) setIconState(icon, true);
 
-        // 이미지 업데이트
         updateImage(button, imageContainer);
       });
     });
 
-    // 초기 상태 설정
     items.forEach((item) => {
       const content = item.querySelector('.image-accordion__content');
       const icon = item.querySelector('.image-accordion__icon');
       const isActive = item.classList.contains('is-active');
 
       if (content) setContentHeight(content, isActive);
-      // if (icon) setIconState(icon, isActive);
     });
   });
 }
@@ -256,11 +209,107 @@ const progressSwiper = new Swiper('.progress-swiper', {
   },
 });
 
+/**
+ * 스크롤에 따라 히어로 섹션의 이미지를 확대하고 단계별 애니메이션을 제어합니다.
+ */
+const enlargeImageOnScroll = (() => {
+  // GSAP 플러그인 등록
+  gsap.registerPlugin(ScrollTrigger);
+  
+  // 설정 상수
+  const CONFIG = {
+    // 애니메이션 진행도에 따른 클래스 토글 임계값
+    ENLARGE_THRESHOLD: 0.1,
+    // 단계별 진행도 계산을 위한 기본값 (전체 진행도의 70%를 단계별로 분배)
+    PROGRESS_RATIO: 0.7,
+    // 단일 단계일 때의 추가 스크롤 비율 (단계가 1개일 때 더 긴 스크롤 적용)
+    SINGLE_STEP_MULTIPLIER: 2
+  };
+
+  /**
+   * 요소에서 클래스를 제거하는 헬퍼 함수
+   * @param {HTMLElement} element - 대상 요소
+   * @param {string[]} classNames - 제거할 클래스 이름 배열
+   */
+  const removeClasses = (element, classNames) => {
+    classNames.forEach(className => {
+      element.classList.remove(className);
+    });
+  };
+
+  /**
+   * 모든 스텝 요소 초기화
+   * @param {NodeList} steps - 초기화할 스텝 요소들
+   */
+  const resetSteps = (steps) => {
+    steps.forEach(step => {
+      if (step) removeClasses(step, ['in', 'out']);
+    });
+  };
+
+  /**
+   * 애니메이션 초기화 및 설정
+   */
+  const init = () => {
+    const container = document.querySelector('.hero-container');
+    if (!container) return;
+
+    const steps = container.querySelectorAll('.hero-step');
+    const stepCount = steps.length;
+    
+    // 유효성 검사
+    if (!stepCount) return;
+
+    // 단계별 진행도 계산
+    const progressStep = CONFIG.PROGRESS_RATIO / stepCount;
+    const progressThresholds = Array.from(
+      { length: stepCount },
+      (_, i) => progressStep * (i + 1)
+    );
+
+    // ScrollTrigger 설정
+    ScrollTrigger.create({
+      trigger: container,
+      start: 'top',
+      end: `+=${(stepCount === 1 ? CONFIG.SINGLE_STEP_MULTIPLIER : stepCount) * 100}%`,
+      pin: true,
+      onEnter: () => resetSteps(steps),
+      onLeave: () => resetSteps(steps),
+      onLeaveBack: () => resetSteps(steps),
+      onUpdate: (self) => {
+        const { progress } = self;
+        
+        // 확대/축소 클래스 토글
+        container.classList.toggle('enlarge', progress >= CONFIG.ENLARGE_THRESHOLD);
+        
+        // 모든 스텝 초기화
+        resetSteps(steps);
+        
+        // 진행도에 따라 단계별로 'in' 클래스 추가
+        progressThresholds.forEach((threshold, index) => {
+          if (progress >= threshold && steps[index]) {
+            steps[index].classList.add('in');
+          }
+        });
+      }
+    });
+  };
+
+  return { init };
+})();
+
+function goTop() {
+  gsap.to('html, body', { duration: 0.5, scrollTop: 0, ease: Power3.easeOut });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   handleScroll();
   initImageAccordion();
 
+  enlargeImageOnScroll.init();
+
   animateUp('.rise', 400, {
     threshold: 0.1,
   });
+  goTop();
 });
